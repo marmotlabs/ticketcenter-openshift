@@ -1,0 +1,127 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring3-2.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:dt="http://www.thymeleaf.org/datatables4jdialect">   
+    <head>
+        <title>Sofia Craciun - TicketCenter</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <link rel="stylesheet" href="../resources/css/bootstrap-theme.css" type="text/css" media="screen"
+              th:href="@{/css/bootstrap-theme.css}"/>
+        <link rel="stylesheet" href="../resources/css/bootstrap.css" type="text/css" media="screen"
+              th:href="@{/css/bootstrap.css}"/>
+        <link rel="stylesheet" href="../resources/css/font-awesome.css" type="text/css" media="screen"
+              th:href="@{/css/font-awesome.css}"/>
+        <link rel="stylesheet" href="../resources/css/main.css" type="text/css" media="screen"
+              th:href="@{/css/main.css}"/>
+    </head>
+    <body>
+
+        <!--NAV-->
+        <nav class="navbar navbar-inverse" role="navigation">
+            <div class="container">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/">
+                        <img class="logo" src="../resources/img/logo/ticketcenter_logo.png" th:src="@{/img/logo/ticketcenter_logo.png}" alt="ticketmaster"/>
+                    </a>
+                </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="#">Home</a></li>
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Press</a></li>
+                    </ul>
+
+                    <ul class="nav navbar-nav navbar-right" th:replace="fragments/cart :: cartbar">
+                        <li><a href="/order">4 tickets | 1m $</a></li>
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+        </nav>
+        <!--/NAV-->
+
+        <div class="event-cover">
+            <div class="image" style="background-image: url(../resources/img/carousel/SigurRos.jpg);" th:style="'background-image: url(' + @{/img/carousel/SigurRos.jpg} + ');'"></div>
+        </div>
+
+        <div class="container">
+
+            <!--INFO-->
+
+            <div class="alert alert-warning alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <strong>Warning!</strong> The entire content of this site is fictive.
+            </div>
+
+            <!--/INFO-->
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <h3 th:text="${event.name}">Radiohead</h3>
+                    <p th:text="'Date: ' + ${event.date}">Date: June 21st, 2014</p>
+                    <p th:text="'Price: ' + ${event.price} + ' EUR'">Price: 85 EUR</p>
+                    <p th:text="'Location: ' + ${event.location.name} + ' | Lilienthalallee 29, 80939 Munich, Germany'">Location:  Zenith | Lilienthalallee 29, 80939 Munich, Germany</p>
+<!--                    <img src="../resources/_cache/event-map.png" th:src="@{/_cache/event-map.png}" alt="event-map"/>-->
+<iframe class="google-map" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?q=48.194758,11.607649&amp;num=1&amp;ie=UTF8&amp;ll=48.194043,11.608901&amp;spn=0.028951,0.066047&amp;t=m&amp;z=14&amp;output=embed"></iframe>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-xs-12">
+                    <h3>Buy tickets</h3>
+
+                    <form action="#" id="buyForm" th:action="@{/order/addOrderEntry}" th:object="${orderEntry}" method="post">
+                        <input type="hidden" id="eventId" name="eventId" th:field="*{event.id}" />
+                        <select class="form-control" th:field="*{nrTickets}">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                        </select>
+                        <button id="addOrderEntry" type="submit" name="addOrderEntry" class="btn btn-default">Add to cart</button>
+                    </form>
+                </div>
+
+                <div class="col-sm-6 col-xs-12 content">
+                    <h3>Event details</h3>
+                    <p>Sleep on keyboard stretch attack feet hide when guests come over, yet sweet beast yet swat at dog but climb leg. Hate dog hate dog behind the couch but behind the couch and intently sniff hand. Find something else more interesting. Lick butt hide when guests come over destroy couch yet lick butt use lap as chair or throwup on your pillow, or shake treat bag.</p>
+                    <img class="image" src="../resources/img/events/guano_apes.jpg" th:src="@{${event.picture}}" alt="Event picture"/>
+                </div>
+            </div>
+        </div>
+
+        <!-- FOOTER -->
+        <div th:replace="fragments/footer :: footerbar">
+            <div class="footer">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-6 contact">
+                            <h3>Contact</h3>
+                            <ul>
+                                <li>Craciun Sofia</li>
+                                <li><strong>Tel:</strong> +49 01522 474 4054</li>
+                                <li><strong>Email:</strong> craciun.sofia@gmail.com</li>
+                            </ul>
+                        </div>
+                        <div class="col-sm-6">
+                            <iframe class="google-map" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/?ie=UTF8&amp;ll=37.0625,-95.677068&amp;spn=51.177128,93.076172&amp;t=m&amp;z=4&amp;output=embed"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="../resources/_cache/jquery-1.11.0.min.js" th:src="@{/_cache/jquery-1.11.0.min.js}"></script>
+        <!--<script src="http://code.jquery.com/jquery-1.11.0.min.js" th:src="@{http://code.jquery.com/jquery-1.11.0.min.js}"></script>-->
+        <script src="../resources/_cache/jquery-ui.js" th:src="@{/_cache/jquery-ui.js}"></script>
+        <!--<script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js" th:src="@{http://code.jquery.com/ui/1.10.4/jquery-ui.js}"></script>-->
+        <script src="../resources/js/bootstrap.js" th:src="@{/js/bootstrap.js}"></script>
+
+    </body>
+</html>

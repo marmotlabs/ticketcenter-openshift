@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
+
+    <!-- DataSource, SessionFactory and TransactionManager configuration -->
+    <import resource="data-access.xml" />
+
+    <!-- Scans the classpath of this application for @Components to deploy as beans -->
+    <context:component-scan base-package="com.marmotlabs" />
+
+    <!-- Enabling Spring MVC configuration through annotations -->
+    <mvc:annotation-driven conversion-service="conversionService">
+        <mvc:argument-resolvers>
+            <!-- Paging support -->
+            <bean id="pageableHandlerMethodArgumentResolver" class="org.springframework.data.web.PageableHandlerMethodArgumentResolver">
+                <!-- The default paging properties, in case none have been specified (for example on first page display) -->
+                <property name="fallbackPageable" ref="fallbackPageable"/>
+            </bean>
+        </mvc:argument-resolvers>
+    </mvc:annotation-driven>
+    
+    <mvc:interceptors>
+        <!-- Session Attributes Interceptor -->
+        <bean class="com.marmotlabs.ticketcenter.interceptor.SessionAttributesInterceptor" />        
+    </mvc:interceptors>
+    
+    <!-- Conversion service -->
+    <bean id="conversionService"
+          class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+        <property name="formatters">
+            <set>
+                <!-- Transforms dates received as String from the HTTP request to java.util.Date objects -->
+                <bean class="com.marmotlabs.ticketcenter.webmvc.conversion.DateFormatter" />
+            </set>
+        </property>
+    </bean>
+    
+    <!-- Forwards requests to the "/orderConfirmation" resource to the "orderConfirmation" view, without the need of a Spring @Controller -->
+    <mvc:view-controller path="/orderConfirmation" view-name="orderConfirmation"/>
+
+    <!-- Skips the whole DispatcherServlet workflow for /css, /img and /js resources; they are served as static resources -->
+    <mvc:resources mapping="/css/**" location="/WEB-INF/resources/css/" />
+    <mvc:resources mapping="/img/**" location="/WEB-INF/resources/img/" />
+    <mvc:resources mapping="/js/**" location="/WEB-INF/resources/js/" />
+    <mvc:resources mapping="/fonts/**" location="/WEB-INF/resources/fonts/" />
+    <!-- Temporary storing JQuery online resources for no-network cases -->
+    <mvc:resources mapping="/_cache/**" location="/WEB-INF/resources/_cache/" />
+    
+    <!-- Standard Spring MessageSource implementation --> 
+    <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basename" value="messages" />
+    </bean>
+    
+    <!-- Thymeleaf -->
+    <!-- Based on what the @Controller methods return, it adds a prefix and a suffix to find the template to be displayed -->
+    <bean id="templateResolver"
+          class="org.thymeleaf.templateresolver.ServletContextTemplateResolver">
+        <property name="prefix" value="/WEB-INF/views/" />
+        <property name="suffix" value=".html" />
+        <property name="templateMode" value="HTML5" />
+    </bean>
+    
+    <bean id="templateEngine"
+          class="org.thymeleaf.spring3.SpringTemplateEngine">
+        <property name="templateResolver" ref="templateResolver" />
+    </bean>
+
+    <bean class="org.thymeleaf.spring3.view.ThymeleafViewResolver">
+        <property name="templateEngine" ref="templateEngine" />
+    </bean>
+    
+    <!-- Paging support -->
+    <!-- Default sorting by the "date" field -->
+    <bean id="sortByDateAsc" class="org.springframework.data.domain.Sort" >
+        <constructor-arg>
+            <list>
+                <value type="java.lang.String">date</value>
+            </list>
+        </constructor-arg>
+    </bean>
+    
+    <!-- The default paging properties, in case none have been specified (for example on first page display) -->
+    <bean id="fallbackPageable" class="org.springframework.data.domain.PageRequest">
+        <!-- Default page number -->
+        <constructor-arg index="0" type="int" value="0"/>
+        <!-- Default number of elements per page -->
+        <constructor-arg index="1" type="int" value="4"/>
+        <!-- Default sorting -->
+        <constructor-arg index="2" ref="sortByDateAsc"/>
+    </bean>
+    
+</beans>

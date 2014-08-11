@@ -1,0 +1,297 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring3-2.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">   
+    <head>
+        <title>Sofia Craciun - TicketCenter</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <link rel="stylesheet" href="../../resources/_cache/jquery-ui.css" type="text/css" media="screen"
+              th:href="@{_cache/jquery-ui.css}"/>
+        <!--        <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css" type="text/css" media="screen"
+                      th:href="@{http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css}"/>-->
+        <link rel="stylesheet" href="../resources/css/bootstrap-theme.css" type="text/css" media="screen"
+              th:href="@{/css/bootstrap-theme.css}"/>
+        <link rel="stylesheet" href="../resources/css/bootstrap.css" type="text/css" media="screen"
+              th:href="@{/css/bootstrap.css}"/>
+        <link rel="stylesheet" href="../resources/css/font-awesome.css" type="text/css" media="screen"
+              th:href="@{/css/font-awesome.css}"/>
+        <link rel="stylesheet" href="../resources/css/main.css" type="text/css" media="screen"
+              th:href="@{/css/main.css}"/>
+    </head>
+    <body>
+
+        <!--NAV-->
+        <nav class="navbar navbar-inverse" role="navigation">
+            <div class="container">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/">
+                        <img class="logo" src="../resources/img/logo/ticketcenter_logo.png" th:src="@{/img/logo/ticketcenter_logo.png}" alt="ticketmaster"/>
+                    </a>
+                </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="#">Home</a></li>
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Press</a></li>
+                    </ul>
+
+                    <ul class="nav navbar-nav navbar-right" th:replace="fragments/cart :: cartbar">
+                        <li>
+                            <form action="/order/">
+                                <button type="submit" class="cart-button btn btn-primary btn-sm">
+                                    <span class="glyphicon glyphicon-shopping-cart"></span> <span th:text="${order.sumOfTickets} + ' tickets | ' + ${order.totalPrice} + ' EUR'">4 tickets | 340 EUR</span>
+                                </button>
+                            </form>
+                        </li>
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+        </nav>
+
+        <!--/NAV-->
+
+
+        <!--CAROUSEL-->
+        <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+                <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+            </ol>
+
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner">
+                <div class="item active">
+                    <div class="image" style="background-image: url(../resources/img/carousel/SigurRos.jpg);" th:style="'background-image: url(' + @{/img/carousel/SigurRos.jpg} + ');'">
+                    </div>
+                    <div class="carousel-caption">
+                        Sigur Ros
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="image" style="background-image: url(../resources/img/carousel/Radiohead.jpg);" th:style="'background-image: url(' + @{/img/carousel/Radiohead.jpg} + ');'">
+                    </div>
+                    <div class="carousel-caption">
+                        Radiohead
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="image" style="background-image: url(../resources/img/carousel/RogerWaters.jpg);" th:style="'background-image: url(' + @{/img/carousel/RogerWaters.jpg} + ');'">
+                    </div>
+                    <div class="carousel-caption">
+                        Roger Waters
+                    </div>
+                </div>
+            </div>
+
+            <!-- Controls -->
+            <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+            </a>
+            <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+            </a>
+        </div>
+
+        <!--/CAROUSEL-->
+
+        <div class="container">
+            
+            <!--INFO-->
+            
+            <div class="alert alert-warning alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <strong>Warning!</strong> The entire content of this site is fictive.
+            </div>
+            
+            <div class="alert alert-info alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                This is a web application created by me (Sofia Craciun) to integrate all the Java and web technologies that I have studied: <strong>Java, Spring, Hibernate, Thymeleaf, Bootstrap, JQuery, HTML, CSS</strong>, etc.
+                <br />
+                Feel free to: 1. search using the below search engine, 2. select an event from the result list, 3. add a number of tickets to the shopping card and 4. submit the order.
+                <br />
+                However, do not expect any ticket in your mailbox. :)
+            </div>
+            
+            <!--/INFO-->
+            
+            <form action="#" th:action="@{/}" th:object="${searchCriteria}" method="get" id="searchForm" class="row search-form">
+                <!-- Paging parameters set by the navigation.html fragment -->
+                <input type="hidden" id="pagingPage" name="page"/>
+                <input type="hidden" id="pagingSize" name="size"/>
+                <div class="form-group col-sm-2 col-xs-12">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="fa fa-calendar"></i>
+                        </span>
+                        <input type="text" th:field="*{afterDate}" id="datepicker-between" class="form-control" placeholder="Between..." />
+                    </div>
+                </div>
+
+                <div class="form-group col-sm-2 col-xs-12">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="fa fa-calendar"></i>
+                        </span>
+                        <input type="text" th:field="*{beforeDate}" id="datepicker-and" class="form-control" placeholder="And..."/>
+                    </div>
+                </div>
+
+                <div class="form-group col-sm-3 col-xs-12">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="fa fa-group"></i>
+                        </span>
+                        <input type="text" th:field="*{nameKeyword}" id="nameKeyword" class="form-control" placeholder="Name..."/>
+                    </div>
+                </div>
+
+                <div class="form-group col-sm-3 col-xs-12">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="fa fa-bank"></i>
+                        </span>
+                        <select class="form-control" th:field="*{cityId}">
+                            <option value="-1">City...</option>
+                            <option th:each="city : ${cities}" 
+                                    th:value="${city.id}" 
+                                    th:text="${city.name}">
+                            </option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-sm-2 col-xs-12">
+                    <button type="submit" class="search btn btn-primary">Search</button>
+                </div>
+            </form>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th th:text="#{event.name}">Event</th>
+                        <th th:text="#{event.date}">Date</th>
+                        <th th:text="#{event.location}">Location</th>
+                        <th th:text="#{event.price}">Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="event : ${pageWrapper.content}">
+                        <!--   EventController  /event -->
+                        <td><a href="event.html" th:href="@{|/event/${event.id}|}" th:text="${event.name}"></a></td>
+                        <td th:text="${event.date}"></td>
+                        <td th:text="${event.location.name}"></td>
+                        <td th:text="${event.price} + ' EUR'"></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div th:replace="fragments/navigation :: paginationbar">
+                <div>
+                    <ul class="pagination">
+                        <li>
+                            <a shape="rect" href="search?page=1&amp;size=2">First</a>
+                        </li>
+                        <li>
+                            <a title="Go to previous page" shape="rect" href="search?page=1&amp;size=2">&laquo;</a>
+                        </li>
+                        <li>
+                            <a shape="rect" href="search?page=1&amp;size=2"><span>1</span></a>
+                        </li>
+                        <li class="active">
+                            <span>2</span>
+                        </li>
+                        <li>
+                            <a shape="rect" href="search?page=3&amp;size=2"><span>3</span></a>
+                        </li>
+                        <li>
+                            <a shape="rect" href="search?page=4&amp;size=2"><span>4</span></a>
+                        </li>
+                        <li>
+                            <a title="Go to next page" shape="rect" href="search?page=3&amp;size=2">&raquo;</a>
+                        </li>
+                        <li>
+                            <a shape="rect" href="search?page=4&amp;size=2">Last</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- RANDOM CONTENT -->
+
+            <div class="row">
+                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 content">
+                    <h2>Hopped up on goofballs flop over leave</h2>
+                    <p>
+                        hair everywhere or find something else more interesting, but climb leg. Use lap as chair hunt anything that moves chase mice for climb leg. Shake treat bag nap all day, or hate dog. Nap all day hide when guests come over all of a sudden go crazy and give attitude but burrow under covers intrigued by the shower but chew iPad power cord. Destroy couch run in circles hide when guests come over. Nap all day. Why must they do that hide when guests come over. 
+                    </p>
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 content">
+                    <h2>Burrow under covers destroy</h2>
+                    <p>
+                        Stare at ceiling attack feet yet intrigued by the shower, chew foot yet intrigued by the shower so give attitude. Run in circles sleep on keyboard yet burrow under covers. Give attitude make muffins. Intently stare at the same spot leave dead animals as gifts. Hide when guests come over stand in front of the computer screen yet why must they do that under the bed intently sniff hand missing until dinner time. Use lap as chair. 
+                        <img class="image" src="../resources/_cache/random-picture.jpg" th:src="@{/_cache/random-picture.jpg}" alt="footer-map"/>
+                        Burrow under covers destroy couch missing until dinner time throwup on your pillow or inspect anything brought into the house for stick butt in face. All of a sudden go crazy nap all day, for leave dead animals as gifts intently sniff hand. Make muffins hunt anything that moves chew foot hide when guests come over. Stand in front of the computer screen. Run in circles. Swat at dog shake treat bag but leave hair everywhere so play time, but flop over so cat snacks so chew iPad power cord. Chew iPad power cord sleep on keyboard sweet beast play time hunt anything that moves. 
+                    </p>
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 content">
+                    <h2>Find something else more interesting cat</h2>
+                    <p>
+                        Find something else more interesting cat snacks or swat at dog leave dead animals as gifts inspect anything brought into the house. Stand in front of the computer screen. Leave dead animals as gifts make muffins yet sun bathe for sweet beast. Leave dead animals as gifts.
+                        <img class="image" src="../resources/_cache/random-picture.jpg" th:src="@{/_cache/random-picture.jpg}" alt="footer-map"/>
+                        Sleep on keyboard stretch attack feet hide when guests come over, yet sweet beast yet swat at dog but climb leg. Hate dog hate dog behind the couch but behind the couch and intently sniff hand. Find something else more interesting. Lick butt hide when guests come over destroy couch yet lick butt use lap as chair or throwup on your pillow, or shake treat bag. 
+                    </p>
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 content">
+                    <h2>Flop over swat at dog play</h2>
+                    <p>
+                        Nap all day need to chase tail, sweet beast for claw drapes find something else more interesting. Chew foot intrigued by the shower play time so sweet beast and stand in front of the computer screen climb leg stick butt in face. Intrigued by the shower cat snacks all of a sudden go crazy. Stand in front of the computer screen sun bathe find something else more interesting. Flop over swat at dog play time hide when guests come over nap all day. Chase mice play time for destroy couch and sun bathe yet chase imaginary bugs.
+                        <img class="image" src="../resources/_cache/random-picture.jpg" th:src="@{/_cache/random-picture.jpg}" alt="footer-map"/>
+                        Under the bed leave dead animals as gifts hopped up on goofballs so inspect anything brought into the house. Chew foot cat snacks give attitude. Make muffins. 
+                    </p>
+                </div>
+
+            </div>
+        </div>
+
+
+        <!-- FOOTER -->
+        <div th:replace="fragments/footer :: footerbar">
+            <div class="footer">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-6 contact">
+                            <h3>Contact</h3>
+                            <ul>
+                                <li>Craciun Sofia</li>
+                                <li><strong>Tel:</strong> +49 01522 474 4054</li>
+                                <li><strong>Email:</strong> craciun.sofia@gmail.com</li>
+                            </ul>
+                        </div>
+                        <div class="col-sm-6">
+                            <iframe class="google-map" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/?ie=UTF8&amp;ll=37.0625,-95.677068&amp;spn=51.177128,93.076172&amp;t=m&amp;z=4&amp;output=embed"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="../resources/_cache/jquery-1.11.0.min.js" th:src="@{/_cache/jquery-1.11.0.min.js}"></script>
+        <!--<script src="http://code.jquery.com/jquery-1.11.0.min.js" th:src="@{http://code.jquery.com/jquery-1.11.0.min.js}"></script>-->
+        <script src="../resources/_cache/jquery-ui.js" th:src="@{/_cache/jquery-ui.js}"></script>
+        <!--<script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js" th:src="@{http://code.jquery.com/ui/1.10.4/jquery-ui.js}"></script>-->
+        <script src="../resources/js/bootstrap.js" th:src="@{/js/bootstrap.js}"></script>
+        <script src="../resources/js/carousel.js" th:src="@{/js/carousel.js}"></script>
+        <script src="../resources/js/paging.js" th:src="@{/js/paging.js}"></script>
+        <script src="../resources/js/search.js" th:src="@{/js/search.js}"></script>
+    </body>
+</html>

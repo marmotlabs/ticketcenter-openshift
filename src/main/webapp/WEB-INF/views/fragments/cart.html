@@ -1,0 +1,36 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring3-2.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">   
+    <head>
+        <title>Spring home page</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <link rel="stylesheet" href="../../resources/css/bootstrap/bootstrap-theme.css" type="text/css" media="screen"
+              th:href="@{/css/bootstrap/bootstrap-theme.css}"/>
+        <link rel="stylesheet" href="../../resources/css/bootstrap/bootstrap.css" type="text/css" media="screen"
+              th:href="@{/css/bootstrap/bootstrap.css}"/>
+        <link rel="stylesheet" href="../resources/css/font-awesome.css" type="text/css" media="screen"
+              th:href="@{/css/font-awesome.css}"/>
+        <link rel="stylesheet" href="../../resources/_cache/jquery-ui.css" type="text/css" media="screen"
+              th:href="@{_cache/jquery-ui.css}"/>
+        <!--        <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css" type="text/css" media="screen"
+                      th:href="@{http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css}"/>-->
+    </head>
+    <body>
+        <!-- Pagination Bar -->
+        <ul class="nav navbar-nav navbar-right" th:fragment="cartbar">
+            <li>
+                <form action="/order/">
+                    <button type="submit" class="cart-button btn btn-primary btn-sm">
+                        <span class="glyphicon glyphicon-shopping-cart"></span> <span th:text="${order.sumOfTickets} + ' tickets | ' + ${order.totalPrice} + ' EUR'">4 tickets | 340 EUR</span>
+                    </button>
+                </form>
+            </li>
+        </ul>
+
+        <script src="../resources/_cache/jquery-1.11.0.min.js" th:src="@{/_cache/jquery-1.11.0.min.js}"></script>
+        <!--<script src="http://code.jquery.com/jquery-1.11.0.min.js" th:src="@{http://code.jquery.com/jquery-1.11.0.min.js}"></script>-->
+        <script src="../resources/_cache/jquery-ui.js" th:src="@{/_cache/jquery-ui.js}"></script>
+        <!--<script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js" th:src="@{http://code.jquery.com/ui/1.10.4/jquery-ui.js}"></script>-->
+        <script src="../../resources/js/bootstrap/bootstrap.js" th:src="@{/js/bootstrap/bootstrap.js}"></script>
+    </body>
+</html>

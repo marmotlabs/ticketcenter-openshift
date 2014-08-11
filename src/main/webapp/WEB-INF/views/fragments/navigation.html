@@ -1,0 +1,45 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring3-2.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:dt="http://www.thymeleaf.org/datatables4jdialect">   
+    <head>
+        <title>Spring home page</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <link rel="stylesheet" href="../../resources/css/bootstrap/bootstrap-theme.css" type="text/css" media="screen"
+              th:href="@{/css/bootstrap/bootstrap-theme.css}"/>
+        <link rel="stylesheet" href="../../resources/css/bootstrap/bootstrap.css" type="text/css" media="screen"
+              th:href="@{/css/bootstrap/bootstrap.css}"/>
+        <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css" type="text/css" media="screen"
+              th:href="@{http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css}"/>
+    </head>
+    <body>
+        <!-- Pagination Bar -->
+        <div th:fragment="paginationbar">
+            <ul class="pagination pagination-centered">
+                <li th:class="${pageWrapper.firstPage} ? 'disabled' : ''">
+                    <span th:if="${pageWrapper.firstPage}">First</span>
+                    <a th:if="${not pageWrapper.firstPage}" th:onclick="'javascript:setPagingAndSubmitForm(0, ' + ${pageWrapper.size} + ');'" href="#">First</a>
+                </li>
+                <li th:class="${pageWrapper.hasPreviousPage} ? '' : 'disabled'">
+                    <span th:if="${not pageWrapper.hasPreviousPage}">&laquo;</span>
+                    <a th:if="${pageWrapper.hasPreviousPage}" th:onclick="'javascript:setPagingAndSubmitForm(' + ${pageWrapper.number - 1} + ', ' + ${pageWrapper.size} + ');'" href="#" title="Go to previous page">&laquo;</a>
+                </li>
+                <li th:each="item : ${pageWrapper.items}" th:class="${item.current} ? 'active' : ''">
+                    <span th:if="${item.current}" th:text="${item.number + 1}">1</span>
+                    <a th:if="${not item.current}" th:onclick="'javascript:setPagingAndSubmitForm(' + ${item.number} + ', ' + ${pageWrapper.size} + ');'" href="#"><span th:text="${item.number + 1}">1</span></a>
+                </li>
+                <li th:class="${pageWrapper.hasNextPage} ? '' : 'disabled'">
+                    <span th:if="${not pageWrapper.hasNextPage}">&raquo;</span>
+                    <a th:if="${pageWrapper.hasNextPage}" th:onclick="'javascript:setPagingAndSubmitForm(' + ${pageWrapper.number + 1} + ', ' + ${pageWrapper.size} + ');'" href="#" title="Go to next page">&raquo;</a>
+                </li>
+                <li th:class="${pageWrapper.lastPage} ? 'disabled' : ''">
+                    <span th:if="${pageWrapper.lastPage}">Last</span>
+                    <a th:if="${not pageWrapper.lastPage}" th:onclick="'javascript:setPagingAndSubmitForm(' + ${pageWrapper.totalPages - 1} + ', ' + ${pageWrapper.size} + ');'" href="#">Last</a>
+                </li>
+            </ul>
+        </div>
+        <script src="http://code.jquery.com/jquery-1.11.0.min.js" th:src="@{http://code.jquery.com/jquery-1.11.0.min.js}"></script>
+        <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js" th:src="@{http://code.jquery.com/ui/1.10.4/jquery-ui.js}"></script>
+        <script src="../../resources/js/bootstrap/bootstrap.js" th:src="@{/js/bootstrap/bootstrap.js}"></script>
+    </body>
+</html>

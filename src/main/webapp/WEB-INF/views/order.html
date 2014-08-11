@@ -1,0 +1,151 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring3-2.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:dt="http://www.thymeleaf.org/datatables4jdialect">   
+    <head>
+        <title>Sofia Craciun - TicketCenter</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <link rel="stylesheet" href="../resources/css/bootstrap-theme.css" type="text/css" media="screen"
+              th:href="@{/css/bootstrap-theme.css}"/>
+        <link rel="stylesheet" href="../resources/css/bootstrap.css" type="text/css" media="screen"
+              th:href="@{/css/bootstrap.css}"/>
+        <link rel="stylesheet" href="../resources/css/font-awesome.css" type="text/css" media="screen"
+              th:href="@{/css/font-awesome.css}"/>
+        <link rel="stylesheet" href="../resources/css/main.css" type="text/css" media="screen"
+              th:href="@{/css/main.css}"/>
+    </head>
+    <body>
+
+        <!--NAV-->
+        <nav class="navbar navbar-inverse" role="navigation">
+            <div class="container">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/">
+                        <img class="logo" src="../resources/img/logo/ticketcenter_logo.png" th:src="@{/img/logo/ticketcenter_logo.png}" alt="ticketmaster"/>
+                    </a>
+                </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="#">Home</a></li>
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Press</a></li>
+                    </ul>
+
+                    <ul class="nav navbar-nav navbar-right" th:replace="fragments/cart :: cartbar">
+                        <li><a href="/order">4 tickets | 1m $</a></li>
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+        </nav>
+        <!--/NAV-->
+
+        <div class="event-cover">
+            <div class="image" style="background-image: url(../resources/img/carousel/SigurRos.jpg);" th:style="'background-image: url(' + @{/img/carousel/SigurRos.jpg} + ');'"></div>
+        </div>
+
+        <div class="container">
+
+            <!--INFO-->
+
+            <div class="alert alert-warning alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <strong>Warning!</strong> The entire content of this site is fictive.
+            </div>
+
+            <!--/INFO-->
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Event</th>
+                                <th>Price per ticket</th>
+                                <th>Number of tickets</th>
+                                <th>Total price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="orderEntry : ${order.entries}">
+                                <td><a href="event.html" th:href="@{|/event/${orderEntry.event.id}|}" th:text="${orderEntry.event.name}"></a></td>
+                                <td th:text="${orderEntry.event.price}"></td>
+                                <td th:text="${orderEntry.nrTickets}"></td>
+                                <td th:text="${orderEntry.totalPrice}"></td>
+                            </tr>
+                            <tr>
+                                <td colspan="4" style="text-align: right"><h3 th:text="'Total: ' + ${order.totalPrice} + ' EUR'">Total: 430 EUR</h3></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <h3>Place your order:</h3>
+                </div>
+            </div>
+
+            <form action="#" th:action="@{/order/submitOrder}" th:object="${order}" method="post" id="submitOrderForm" class="row search-form">
+                <div class="form-group col-sm-2 col-xs-12">
+                    <div class="input-group">
+                        <span class="input-group-addon">Name</span>
+                        <input type="text" th:field="*{name}" placeholder="John Doe" class="form-control"/>
+                    </div>
+                </div>
+                <div class="form-group col-sm-2 col-xs-12">
+                    <div class="input-group">
+                        <span class="input-group-addon">Email</span>
+                        <input type="text" th:field="*{email}" placeholder="john@doe.com" class="form-control"/>
+                    </div>
+                </div>
+                <div class="form-group col-sm-6 col-xs-12">
+                    <div class="input-group">
+                        <span class="input-group-addon">Address</span>
+                        <input type="text" th:field="*{address}" placeholder="Street 99" class="form-control"/>
+                    </div>
+                </div>
+                <div class="col-sm-2 col-xs-12">
+                    <button type="submit" class="search btn btn-primary">Send order</button>
+                </div>
+            </form>
+        </div>
+
+
+        <!-- FOOTER -->
+        <div th:replace="fragments/footer :: footerbar">
+            <div class="footer">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-6 contact">
+                            <h3>Contact</h3>
+                            <ul>
+                                <li>Craciun Sofia</li>
+                                <li><strong>Tel:</strong> +49 01522 474 4054</li>
+                                <li><strong>Email:</strong> craciun.sofia@gmail.com</li>
+                                <li><strong>Address:</strong> Tumblingerstr. 14, Munich, Germany</li>
+                            </ul>
+                        </div>
+                        <div class="col-sm-6">
+                            <iframe class="google-map" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/?ie=UTF8&amp;ll=37.0625,-95.677068&amp;spn=51.177128,93.076172&amp;t=m&amp;z=4&amp;output=embed"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="../resources/_cache/jquery-1.11.0.min.js" th:src="@{/_cache/jquery-1.11.0.min.js}"></script>
+        <!--<script src="http://code.jquery.com/jquery-1.11.0.min.js" th:src="@{http://code.jquery.com/jquery-1.11.0.min.js}"></script>-->
+        <script src="../resources/_cache/jquery-ui.js" th:src="@{/_cache/jquery-ui.js}"></script>
+        <!--<script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js" th:src="@{http://code.jquery.com/ui/1.10.4/jquery-ui.js}"></script>-->
+        <script src="../resources/js/bootstrap.js" th:src="@{/js/bootstrap.js}"></script>
+
+    </body>
+</html>

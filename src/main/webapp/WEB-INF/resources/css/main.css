@@ -1,0 +1,68 @@
+.navbar {
+	margin-bottom: 0;
+}
+
+.navbar .navbar-brand .logo {
+	height: 100%;
+	position: relative;
+}
+
+.carousel {
+	overflow: hidden;
+	margin-bottom: 20px;
+}
+
+.carousel .image {
+	height: 50vh;
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+.search-form .search.btn {
+	width: 100%;
+}
+
+.content .image {
+	width: 100%;
+}
+
+.footer {
+	background: #333;
+	color: #fff;
+	padding-bottom: 20px;
+}
+
+.footer .contact ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.google-map {
+	width: 100%;
+}
+
+.footer .container .google-map {
+	margin-top: 20px;
+}
+
+.event-cover {
+	overflow: hidden;
+	margin-bottom: 20px;
+}
+
+.event-cover .image {
+	height: 20vh;
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+.pagination {
+    margin: 0px 0;
+}
+
+.navbar-right .cart-button {
+    margin-top: 10px;
+}

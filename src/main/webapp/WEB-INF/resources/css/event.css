@@ -1,0 +1,56 @@
+/*p {
+    background-color: #5cb85c;
+    font-size: 15px; 
+}*/
+
+.main {
+    background-color: #414141;
+}
+
+.logo {
+    padding : 10px;
+}
+
+a {
+    color: #67b168;
+}
+
+a:hover {
+    color: #ed9c28;
+}
+
+.cart {
+    font-size: 10px; 
+    padding : 10px;
+    text-align: right;
+    text-decoration: none;
+}
+
+.mls {
+    font-family: sans-serif;
+    font-size: 15px;
+    line-height: 1.5;
+    color: #efg;
+}
+
+
+body { 
+    background: url("/img/backround/background_blur.jpg") no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+.fs1 {
+    font-size: 40px;
+}
+
+.title-lg {
+    font-size: 36px;
+    color: #fcf8e3;
+}
+
+.title-md {
+    font-size: 20px;
+    color: #fcf8e3;
+}
